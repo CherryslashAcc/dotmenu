@@ -1,0 +1,14 @@
+show=drun
+width=750
+height=400
+always_parse_args=true
+gtk_dark=true
+show_icons=true
+show_all=false
+term=alacritty
+hide_scroll=false
+print_command=true
+insensitive=false
+prompt=meow
+columns=2
+@themme "~/.config/wofi/style.css"
