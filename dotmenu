@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+DOTDIR="$HOME/dotfiles"
+CHOOSENTHEME=""
+backup() {
+    local appname="$1"
+    local configdir="$HOME/.config/${appname}"
+    local time=$(date +%Y%m%d%H%M%S)
+    local selected="${DOTDIR}/${appname}"
+    # Paranoic checks
+    if [ ! -d "$selected" ]; then
+        echo "Selected app config doesn't exist in the $DOTDIR folder!"
+        exit 1
+    else
+        echo "$selected found..."
+    fi
+    if [ ! -d "${selected}/${CHOOSENTHEME}" ]; then
+        echo "Selected app config doesn't exist in the $DOTDIR folder!"
+        exit 1
+    else
+        echo "$CHOOSENTHEME theme found..."
+    fi    
+    
+    if [ ! -e "$configdir" ]; then
+       echo "No previous config for $appname found."
+       echo "Skipping backup creation"
+    else 
+        echo "Found existing config directory."
+        local response=$(printf "Yes\nNo" | fzf --prompt="Create a backup?" --height="20%")
+        case $response in 
+            "Yes")
+                mv "$configdir" "${configdir}_backup_${time}"
+                ;;
+            "No")
+                rm -fr "$configdir"
+                ;;
+        esac 
+    fi
+}
+apply_theme() {
+    
+}
