@@ -2,9 +2,10 @@
 
 set -e
 
-DOTDIR="$HOME/dotfiles"
+DOTDIR="$HOME/dotfiles/dotfiles"
 backup() {
     local appname="$1"
+    local backuptheme="$2"
     local configdir="$HOME/.config/${appname}"
     local time=$(date +%Y%m%d%H%M%S)
     local selected="${DOTDIR}/${appname}"
@@ -15,11 +16,11 @@ backup() {
     else
         echo "$selected found..."
     fi
-    if [ ! -d "${selected}/${CHOOSENTHEME}" ]; then
+    if [ ! -d "${selected}/${backuptheme}" ]; then
         echo "Selected app config doesn't exist in the $DOTDIR folder!"
         exit 1
     else
-        echo "$CHOOSENTHEME theme found..."
+        echo "$backuptheme theme found..."
     fi    
     
     if [ ! -e "$configdir" ]; then
@@ -35,6 +36,10 @@ backup() {
             "No")
                 rm -fr "$configdir"
                 ;;
+            *)
+                echo "Aborted. Exiting..."
+                exit 1
+                ;;1
         esac 
     fi
 }
@@ -44,8 +49,16 @@ apply_theme() {
     local target="$HOME/.config"
     local final="${target}/${1}"
     echo "Applying ${2} theme for ${1} to path ${final}..."
-    ln -s "${DOTDIR}/}${app}/${theme}" "$final"
+    ln -s "${DOTDIR}/${app}/${theme}" "$final"
     echo "Done!"
 }
 
 CHOOSENTHEME=$(ls ${DOTDIR}/themes | fzf --prompt="Choose the theme..." --height="20%")
+for stage in $(find $HOME/dotfiles/dotfiles -maxdepth 1 -mindepth 1 -type d); do
+    foundpath=$(find $stage -maxdepth 1 -mindepth 1 -type d -name "${CHOOSENTHEME}")
+    if [ -n "$foundpath" ]; then
+        targetapp=$(basename "${stage}")
+        backup "$targetapp" "$CHOOSENTHEME"
+        apply_theme "$targetapp" "$CHOOSENTHEME"
+    fi 
+done 
