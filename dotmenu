@@ -3,7 +3,6 @@
 set -e
 
 DOTDIR="$HOME/dotfiles"
-CHOOSENTHEME=""
 backup() {
     local appname="$1"
     local configdir="$HOME/.config/${appname}"
@@ -40,5 +39,13 @@ backup() {
     fi
 }
 apply_theme() {
-    
+    local app="$1"
+    local theme="$2"
+    local target="$HOME/.config"
+    local final="${target}/${1}"
+    echo "Applying ${2} theme for ${1} to path ${final}..."
+    ln -s "${DOTDIR}/}${app}/${theme}" "$final"
+    echo "Done!"
 }
+
+CHOOSENTHEME=$(ls ${DOTDIR}/themes | fzf --prompt="Choose the theme..." --height="20%")
