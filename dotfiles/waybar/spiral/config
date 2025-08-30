@@ -8,12 +8,12 @@
     "position": "top",
 
     "height": 10,
-    "width": 1910,
+    "width": 1920,
 
 
-    "margin-left": 5,
-    "margin-top": 5,
-    "margin-right": 5,
+    "margin-left": 0,
+    "margin-top": 0,
+    "margin-right": 0,
 
     "spacing": 0, // Gaps between modules (4px)
 

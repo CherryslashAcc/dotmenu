@@ -2,7 +2,7 @@
 * {
     font-family: "Fira Code", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 12px;  /* Slightly smaller font size */
-    font-weight: 100;
+    font-weight: 300;
     margin: 0;
     padding: 0;
     transition-property: background-color;
@@ -63,7 +63,7 @@ c
 
 #window {
     background-color: #151515;
-    font-size: 15px;   /* Slightly smaller font size */
+    font-size: 30px;   /* Slightly smaller font size */
     font-weight: 800;
     color: @foreground;
     border-radius: 14px;
