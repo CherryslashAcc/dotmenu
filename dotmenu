@@ -2,7 +2,7 @@
 
 set -e
 
-DOTDIR="$HOME/dotfiles/dotfiles"
+DOTDIR="$HOME/dotfiles/"
 backup() {
     local appname="$1"
     local backuptheme="$2"
@@ -39,7 +39,7 @@ backup() {
             *)
                 echo "Aborted. Exiting..."
                 exit 1
-                ;;1
+                ;;
         esac 
     fi
 }

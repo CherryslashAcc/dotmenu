@@ -15,11 +15,11 @@ if [ ! -f $SOURCE_FILE ]; then
     exit 1
 fi
 
-if [ ! -d "$SOURCE_DOTFILES "]; then
+if [ ! -d "$SOURCE_DOTFILES" ]; then
   echo "Skipping..."
 else
   if [ ! -e "$DOTFILES_DIR" ]; then
-  cp -r "dotfiles" "$HOME/"
+  mv "dotfiles" "$HOME/"
   else 
     echo "Found existing config directory."
     response=$(printf "Yes\nNo" | fzf --prompt="Create a backup?" --height="20%")
@@ -33,15 +33,16 @@ else
         *)
             echo "Aborted. Exiting..."
             exit 1
-            ;;1
+            ;;
      esac 
-    cp "dotfiles" "${DOTFILES_DIR}"
+    cp -r "dotfiles" "${DOTFILES_DIR}"
   fi
 fi
+echo "Running with sudo"
 if [ "$EUID" -ne 0 ]; then
   exec sudo "$0" "$@"
 fi
-cp "$SOURCE_FILE" "$INSTALL_PATH"
+cp -r "$SOURCE_FILE" "$INSTALL_PATH"
 echo "Copy made"
 chmod +x "$INSTALL_PATH"
 
