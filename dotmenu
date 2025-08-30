@@ -54,7 +54,7 @@ apply_theme() {
 }
 
 CHOOSENTHEME=$(ls ${DOTDIR}/themes | fzf --prompt="Choose the theme..." --height="20%")
-for stage in $(find $HOME/dotfiles/dotfiles -maxdepth 1 -mindepth 1 -type d); do
+for stage in $(find $HOME/dotfiles -maxdepth 1 -mindepth 1 -type d); do
     foundpath=$(find $stage -maxdepth 1 -mindepth 1 -type d -name "${CHOOSENTHEME}")
     if [ -n "$foundpath" ]; then
         targetapp=$(basename "${stage}")
