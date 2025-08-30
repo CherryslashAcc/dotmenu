@@ -60,7 +60,7 @@ for stage in $(find $HOME/dotfiles -maxdepth 1 -mindepth 1 -type d); do
         targetapp=$(basename "${stage}")
         backup "$targetapp" "$CHOOSENTHEME"
         apply_theme "$targetapp" "$CHOOSENTHEME"
-        swww-daemon
+        swww-daemon &
         swww img "${DOTDIR}/wallpaper/${CHOOSENTHEME}"
     fi 
 done 
