@@ -50,6 +50,7 @@ apply_theme() {
     local final="${target}/${1}"
     echo "Applying ${2} theme for ${1} to path ${final}..."
     ln -s "${DOTDIR}/${app}/${theme}" "$final"
+    swww img $DOTDIR/wallpaper/$CHOOSENTHEME
     echo "Done!"
 }
 
@@ -60,7 +61,6 @@ for stage in $(find $HOME/dotfiles -maxdepth 1 -mindepth 1 -type d); do
         targetapp=$(basename "${stage}")
         backup "$targetapp" "$CHOOSENTHEME"
         apply_theme "$targetapp" "$CHOOSENTHEME"
-        swww-daemon &
         swww img "${DOTDIR}/wallpaper/${CHOOSENTHEME}"
     fi 
 done 
